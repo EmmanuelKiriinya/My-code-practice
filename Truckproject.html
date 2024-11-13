@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logistics Company - Book Return Trips</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #e6f7ff;
+            color: #333;
+        }
+        header {
+            background-image: url('https://media.istockphoto.com/id/1404380618/photo/truck-at-night-on-the-road.jpg?s=612x612&w=0&k=20&c=VN73GrFwdAKRzoNfBriaatZHuPj6bvV625JA4qqyvgw=');
+            background-size: cover;
+            background-position: center;
+            height: 200px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #003d80;
+            padding: 10px 0;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .filter-bar {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .truck-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
+        .truck-card img {
+            width: 100px;
+            height: auto;
+            margin-right: 15px;
+            border-radius: 5px;
+        }
+        .truck-card h2 {
+            margin: 0;
+            color: #0056b3;
+        }
+        .truck-info {
+            margin: 5px 0;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #28a745;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        footer {
+            margin-top: 20px;
+            padding: 15px;
+            text-align: center;
+            background-color: #0056b3;
+            color: #fff;
+        }
+        
+    </style>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <h1>Logistics Company - Book Your Return Trips</h1>
+        <p>Find available trucks with empty return trips to major towns in Kenya</p>
+    </header>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Bookings</a>
+        <a href="#">Help</a>
+        <a href="#">About Us</a>
+    </nav>
+
+    <div class="container">
+        <div class="filter-bar">
+            <label for="filter">Filter by destination:</label>
+            <input type="text" id="filter" placeholder="Enter destination...">
+        </div>
+
+        <!-- Truck Card Example -->
+        <div class="truck-card">
+            <img src="https://th.bing.com/th/id/OIP.AQDS4Ocya3nDfm5goZhaAQHaFj?rs=1&pid=ImgDetMain" alt="Truck Image">
+            <div>
+                <h2>Truck #1 - Nairobi</h2>
+                <div class="truck-info">Make & Model: Scania R450</div>
+                <div class="truck-info">Live Location: <span id="location1">-1.2921, 36.8219</span></div>
+                <div class="truck-info">Return Time: 18:00 EAT</div>
+                <div class="truck-info">Facilities: Refrigerated, Tipper</div>
+                <div class="truck-info">Destination: Mombasa</div>
+                <a href="#" class="button">Book This Truck</a>
+            </div>
+        </div>
+
+        <!-- Additional Truck Cards generated dynamically with JavaScript -->
+        <script>
+            const truckMakes = ["Volvo FH16", "Mercedes-Benz Actros", "DAF XF", "Scania R450", "MAN TGX"];
+            const facilitiesOptions = ["Refrigerated", "Tipper", "Ordinary Open", "Standard", "Cold Storage"];
+            const trucks = [
+                { id: 1, image: "https://th.bing.com/th/id/OIP.AQDS4Ocya3nDfm5goZhaAQHaFj?rs=1&pid=ImgDetMain", location: "-1.2921, 36.8219", time: "18:00 EAT", facilities: ["Refrigerated", "Tipper"], destination: "Mombasa" },
+                { id: 2, image: "data:image/jpeg;base64,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", location: "-1.286389, 36.817223", time: "16:30 EAT", facilities: ["Standard", "Ordinary Open"], destination: "Nakuru" },
+                { id: 3, image: "https://th.bing.com/th/id/OIP.bXM4KS67EjddUXzq9oNGZAHaE8?rs=1&pid=ImgDetMain", location: "-1.292066, 36.821945", time: "19:15 EAT", facilities: ["Cold Storage", "Tipper"], destination: "Kisumu" }
+            ];
+
+            const container = document.querySelector('.container');
+
+            // Display truck cards dynamically
+            trucks.forEach(truck => {
+                const truckCard = document.createElement('div');
+                truckCard.classList.add('truck-card');
+                const makeModel = truckMakes[Math.floor(Math.random() * truckMakes.length)];
+                truckCard.innerHTML = `
+                    <img src="${truck.image}" alt="Truck Image">
+                    <div>
+                        <h2>Truck #${truck.id} - ${truck.destination}</h2>
+                        <div class="truck-info">Make & Model: ${makeModel}</div>
+                        <div class="truck-info">Live Location: <span>${truck.location}</span></div>
+                        <div class="truck-info">Return Time: ${truck.time}</div>
+                        <div class="truck-info">Facilities: ${truck.facilities.join(", ")}</div>
+                        <div class="truck-info">Destination: ${truck.destination}</div>
+                        <a href="#" class="button">Book This Truck</a>
+                    </div>
+                `;
+                container.appendChild(truckCard);
+            });
+
+            // Filter functionality
+            document.getElementById('filter').addEventListener('input', function() {
+                const filterValue = this.value.toLowerCase();
+                const truckCards = document.querySelectorAll('.truck-card');
+                truckCards.forEach(card => {
+                    const destination = card.querySelector('h2').textContent.toLowerCase();
+                    if (destination.includes(filterValue)) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        </script>
+    </div>
+
+    <footer>
+        <p>Contact Us: +254 700 123456 | Email: info@logisticscompany.co.ke</p>
+        <p>&copy; 2024 Logistics Company. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
